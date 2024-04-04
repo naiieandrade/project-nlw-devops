@@ -31,4 +31,4 @@ jobs:
 
     - name: Push image
       run: 
-        docker push naiie/project-nlw-devops:4${{ steps.generate_sha.outputs.sha }} .
+        docker push naiie/project-nlw-devops:${{ steps.generate_sha.outputs.sha }} .
