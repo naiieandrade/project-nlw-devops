@@ -14,13 +14,11 @@ RUN npm prune --prod
 # Deploy step
 FROM node:20-alpine3.19 AS deploy
 WORKDIR /usr/src/app
-#RUN npm run db:migrate
 COPY --from=build /usr/src/app/dist ./dist
 COPY --from=build /usr/src/app/node_modules ./node_modules
 COPY --from=build /usr/src/app/package.json ./package.json
 COPY --from=build /usr/src/app/package-lock.json ./package-lock.json
 COPY --from=build /usr/src/app/prisma ./prisma
-# COPY --from=build /usr/src/app/wait-for-it.sh ./wait-for-it.sh
 RUN npx prisma generate
 
 EXPOSE 3333
