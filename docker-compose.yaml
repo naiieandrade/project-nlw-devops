@@ -2,6 +2,25 @@ version: '3.7'
 
 services:
 
+  postgres:
+    image: postgres:16.2-alpine3.19
+    container_name: db-pass-in
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=passin
+    networks:
+      - passin
+    # volumes:
+    #   - 'db:/var/lib/posgresql/data'
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d passin"]
+      interval: 3s
+      retries: 5
+      start_period: 60s
+
   api-pass-in:
     build:
       context: .
@@ -9,5 +28,28 @@ services:
     ports:
       - 3001:3333
     environment:
-      - DATABASE_URL=file./db.sqlite
+      - DATABASE_URL=postgresql://admin:admin@postgres:5432/passin
       - API_BASE_URL=http://localhost:3333
+    #command: ["npm", "run", "migrate"]
+  # migration:
+  #   build:
+  #     context: .
+  #   command: ["./wait-for-it.sh",
+  #             "db:5432",
+  #             "--",
+  #             "npm",
+  #             "run",
+  #             "migrate"]
+    # links:
+    #   - postgres
+    depends_on:
+      # - postgres
+    #command: ["/wait-for-it.sh", "postgres:5432", "--", "pnpm", "start"]
+      postgres:
+        condition: service_healthy
+    networks:
+      - passin
+
+networks:
+  passin:
+    driver: bridge
