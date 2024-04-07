@@ -2,17 +2,17 @@ apiVersion: v1
 kind: Service
 
 metadata:
-  name: nginx-service
+  name: passin-service
   labels:
-    app: nginx
+    app: passin
 
 spec:
   selector:
-    app: nginx
+    app: passin
   type: ClusterIP
   ports:
-  - name: nginx-service
+  - name: passin-service
     port: 80
-    targetPort: 80
+    targetPort: 3333
     protocol: TCP
 
