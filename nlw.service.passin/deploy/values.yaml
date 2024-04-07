@@ -86,7 +86,7 @@ resources:
 # pode plugar uma observalidade e alerta
 
 autoscaling:
-  enabled: false
+  enabled: true
   minReplicas: 5
   maxReplicas: 8
   # targetCPUUtilizationPercentage: 80
