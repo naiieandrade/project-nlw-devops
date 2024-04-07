@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/naiieandrade/project-nlw-devops.git
     targetRevision: HEAD
-    path: deploy
+    path: ../nlw.service.passin/deploy
   destination:
     server: https://kubernetes.default.svc
     namespace: nlw
