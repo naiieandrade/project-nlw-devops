@@ -21,7 +21,8 @@ jobs:
         echo "sha=$SHA" >> $GITHUB_OUTPUT
 
     - name: Build docker image
-      run: docker build -t naiie/project-nlw-devops:${{ steps.generate_sha.outputs.sha }} .
+      # uses: ../../nlw.service.passin 
+      run: cd nlw.service.passin && docker build -t naiie/project-nlw-devops:${{ steps.generate_sha.outputs.sha }} .
 
     - name: Log into the container registry
       uses: docker/login-action@v3
@@ -34,3 +35,13 @@ jobs:
         docker push naiie/project-nlw-devops:${{ steps.generate_sha.outputs.sha }}
         docker tag naiie/project-nlw-devops:${{ steps.generate_sha.outputs.sha }} naiie/project-nlw-devops:latest
         docker push naiie/project-nlw-devops:latest
+    
+    - name: Update image tag
+      uses: fjogeleit/yaml-update-action@main
+      with:
+        branch: main
+        valueFile: "deploy/values.yaml"
+        propertyPath: "image.tag"
+        value: "${{ steps.generate_sha.outputs.sha }}"
+        commitChange: true
+        message: "new: update tag in values helm"
