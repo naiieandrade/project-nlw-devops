@@ -3,7 +3,7 @@ import { z } from "zod"
 import { generateSlug } from "../utils/generate-slug"
 import { prisma } from "../lib/prisma"
 import { FastifyInstance } from "fastify"
-import { BadRequest } from "./_errors/bad-request"
+import { BadRequest } from "./_errors/bad-request-error"
 
 export async function createEvent(app: FastifyInstance) {
   app
