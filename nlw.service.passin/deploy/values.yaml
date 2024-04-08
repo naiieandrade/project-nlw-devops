@@ -2,7 +2,7 @@ replicaCount: 5
 image:
   repository: naiie/project-nlw-devops
   pullPolicy: Always
-  tag: e93156e
+  tag: a623cdb
   port: 3333
 imagePullSecrets: []
 nameOverride: ''
