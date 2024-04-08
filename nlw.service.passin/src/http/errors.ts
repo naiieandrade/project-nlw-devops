@@ -1,6 +1,6 @@
 import { FastifyInstance } from 'fastify'
 
-import { env } from '@/env'
+import { env } from '../http/env'
 import { BadRequestError } from './routes/_errors/bad-request-error'
 import { ConflictError } from './routes/_errors/conflict-error'
 
