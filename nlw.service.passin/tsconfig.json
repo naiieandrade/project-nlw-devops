@@ -11,8 +11,13 @@
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "moduleResolution": "node16"
-  },
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node16",
 
-  "include": ["src"]
+    "baseUrl": ".",
+
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
 }
